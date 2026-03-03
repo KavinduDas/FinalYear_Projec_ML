@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advantis Engineering - Leading Construction and Engineering Company in Sri Lanka</title>
+    <link rel="stylesheet" href="{{ url_for('static' , filename = 'Css/style.css')}}">
+    {% block extra_css %}{% endblock %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+   
+      <header class="header">
+        <nav class="navbar">
+            <div class="container">
+                <div class="nav-wrapper">
+                    <div class="logo">
+                        <svg class="construction-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                            <path d="M2 17l10 5 10-5"/>
+                            <path d="M2 12l10 5 10-5"/>
+                        </svg>
+                        <h2>Advantis Engineering</h2>
+                    </div>
+                    <ul class="nav-menu" id="navMenu">
+                        <li><a href="#home" class="nav-link">Home</a></li>
+                        <li><a href="#about" class="nav-link">About</a></li>
+                        <li class="dropdown">
+                            <a href="#services" class="nav-link">Services <i class="fas fa-chevron-down"></i></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#services">Pre-Engineered Steel Buildings</a></li>
+                                <li><a href="#services">Turnkey & Civil Construction</a></li>
+                                <li><a href="#services">Structural Erection</a></li>
+                                <li><a href="#services">MEP Services</a></li>
+                                <li><a href="#services">Interior Solutions</a></li>
+                                <li><a href="#services">Visualisation Drafting</a></li>
+                                <li><a href="#services">Architectural Aluminium</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#projects" class="nav-link">Projects</a></li>
+                        <li><a href="#careers" class="nav-link">Careers</a></li>
+                        <li><a href="#contact" class="nav-link">Contact</a></li>
+                    </ul>
+                    <div class="hamburger" id="hamburger">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+     {% block body %} 
+     {% endblock %}
+     {% block extra_js %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,267 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - ConstructIQ</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='Css/adminpage.css')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body> -->
+
+{% extends 'layout.html' %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='Css/adminpage.css')}}">
+{% endblock %}
+
+{% block body %}
+    <!-- Admin Header -->
+    <header class="admin-header">
+        <div class="header-left">
+            <svg class="admin-construction-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                <path d="M2 17l10 5 10-5"/>
+                <path d="M2 12l10 5 10-5"/>
+            </svg>
+            <h1>Admin</h1>
+        </div>
+        <div class="header-right">
+            <span class="user-name">Theo Rodriguez</span>
+            <div class="user-avatar">
+                <img src="https://ui-avatars.com/api/?name=Theo+Rodriguez&background=3b82f6&color=fff&size=128" alt="User Avatar">
+            </div>
+        </div>
+    </header>
+
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-toggle" id="sidebarToggle">
+                <i class="fas fa-chevron-left"></i>
+                <span>Hide Menu</span>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item" data-section="dashboard">
+                    <i class="fas fa-th-large"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" class="nav-item active" data-section="create-user">
+                    <i class="fas fa-user-plus"></i>
+                    <span>Create User</span>
+                </a>
+                <a href="#" class="nav-item" data-section="manage-users">
+                    <i class="fas fa-users"></i>
+                    <span>Manage Users</span>
+                </a>
+                <a href="#" class="nav-item" data-section="parameters">
+                    <i class="fas fa-file-alt"></i>
+                    <span>Parameters</span>
+                    <i class="fas fa-chevron-right"></i>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Create User Section -->
+            <section class="content-section" id="create-user-section">
+                <div class="section-header">
+                    <h2>Create User</h2>
+                </div>
+                <div class="content-card">
+                    <form class="user-form" id="createUserForm" action="/submit" method="post">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="username">Username</label>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-user input-icon"></i>
+                                    <input 
+                                        type="text" 
+                                        id="username" 
+                                        name="username" 
+                                        placeholder="Enter username"
+                                        required
+                                    >
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-lock input-icon"></i>
+                                    <input 
+                                        type="password" 
+                                        id="password" 
+                                        name="password" 
+                                        placeholder="Enter password"
+                                        required
+                                    >
+                                    <i class="fas fa-eye password-toggle" id="passwordToggle"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-envelope input-icon"></i>
+                                    <input 
+                                        type="email" 
+                                        id="email" 
+                                        name="email" 
+                                        placeholder="Enter email address"
+                                        required
+                                    >
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="designation">Designation</label>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-briefcase input-icon"></i>
+                                    <select 
+                                        id="designation" 
+                                        name="designation" 
+                                        class="form-select"
+                                        required
+                                    >
+                                        <option value="">Select designation</option>
+                                        <option value="Admin">Admin</option>
+                                        <option value="Project Manager">Project Manager</option>
+                                        <option value="Site Manager">Site Manager</option>
+                                        <option value="Engineer">Engineer</option>
+                                        <option value="Supervisor">Supervisor</option>
+                                        <option value="Accountant">Accountant</option>
+                                        <option value="Procurement Officer">Procurement Officer</option>
+                                        <option value="Data Analyst">Data Analyst</option>
+                                        <option value="Viewer">Viewer</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn-primary">Create User</button>
+                            <button type="reset" class="btn-secondary">Reset</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Manage Users Section -->
+            <section class="content-section" id="manage-users-section" style="display: none;">
+                <div class="jobs-header">
+                    <h2>All Users</h2>
+                    <div class="jobs-actions">
+                        <button class="btn-create-job" onclick="showCreateUser()">
+                            <i class="fas fa-plus"></i>
+                            Create User
+                        </button>
+                        <button class="btn-action-icon" title="Refresh">
+                            <i class="fas fa-sync-alt"></i>
+                        </button>
+                        <button class="btn-action-icon" title="Edit Selected">
+                            <i class="fas fa-pencil-alt"></i>
+                        </button>
+                        <button class="btn-action-icon" title="Delete Selected">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                        <div class="dropdown-more">
+                            <button class="btn-more" type="button">
+                                More
+                                <i class="fas fa-caret-down"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="show-entries">
+                    <span>Show</span>
+                    <select id="rowsPerPage" class="entries-select" onchange="changeRowsPerPage()">
+                        <option value="10" selected>10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                    <span>entries</span>
+                </div>
+                <div class="content-card">
+                    <div class="table-container">
+                        <table class="user-table" id="userTable">
+                            <thead>
+                                <tr>
+                                    <!-- <th class="checkbox-col">
+                                        <input type="checkbox" id="selectAll" onchange="toggleSelectAll()">
+                                    </th> -->
+                                    <th class="sortable">
+                                        Username
+                                        <i class="fas fa-sort sort-icon"></i>
+                                    </th>
+                                    <th class="sortable">
+                                        Email
+                                        <i class="fas fa-sort sort-icon"></i>
+                                    </th>
+                                    <th class="sortable">
+                                        Designation
+                                        <i class="fas fa-sort sort-icon"></i>
+                                    </th>
+                                    <th class="sortable">
+                                        Status
+                                        <i class="fas fa-sort sort-icon"></i>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody id="userTableBody">
+                                {% for total in Total_users %}
+                                <tr class="user-row" >
+                                    <td>{{ total.username }}</td>
+                                    <td>{{ total.email }}</td>
+                                    <td>{{ total.designation }}</td>
+                                    <td>
+                                        <span class="status-badge status-published">Active</span>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="table-footer">
+                        <div class="pagination-info">
+                            <span id="paginationText">1-10 of 50 items</span>
+                            <div class="pagination-controls">
+                                <button class="page-btn" id="prevPage" onclick="changePage(-1)">
+                                    <i class="fas fa-chevron-left"></i>
+                                </button>
+                                <button class="page-btn" id="nextPage" onclick="changePage(1)">
+                                    <i class="fas fa-chevron-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Dashboard Section -->
+            <section class="content-section" id="dashboard-section" style="display: none;">
+                <div class="section-header">
+                    <h2>Dashboard</h2>
+                </div>
+                <div class="content-card">
+                    <p>Dashboard content goes here...</p>
+                </div>
+            </section>
+
+            <!-- Parameters Section -->
+            <section class="content-section" id="parameters-section" style="display: none;">
+                <div class="section-header">
+                    <h2>Parameters</h2>
+                </div>
+                <div class="content-card">
+                    <p>Parameters content goes here...</p>
+                </div>
+            </section>
+        </main>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{{ url_for('static', filename='Js/adminpage.js')}}"></script>
+{% endblock %}
+

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advantis Engineering - Leading Construction and Engineering Company in Sri Lanka</title>
+    <link rel="stylesheet" href="{{ url_for('static' , filename = 'Css/style.css')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+ 
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="container">
+                <div class="nav-wrapper">
+                    <div class="logo">
+                        <svg class="construction-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                            <path d="M2 17l10 5 10-5"/>
+                            <path d="M2 12l10 5 10-5"/>
+                        </svg>
+                        <h2>Advantis Engineering</h2>
+                    </div>
+                    <ul class="nav-menu" id="navMenu">
+                        <li><a href="#home" class="nav-link">Home</a></li>
+                        <li><a href="#about" class="nav-link">About</a></li>
+                        <li class="dropdown">
+                            <a href="#services" class="nav-link">Services <i class="fas fa-chevron-down"></i></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#services">Pre-Engineered Steel Buildings</a></li>
+                                <li><a href="#services">Turnkey & Civil Construction</a></li>
+                                <li><a href="#services">Structural Erection</a></li>
+                                <li><a href="#services">MEP Services</a></li>
+                                <li><a href="#services">Interior Solutions</a></li>
+                                <li><a href="#services">Visualisation Drafting</a></li>
+                                <li><a href="#services">Architectural Aluminium</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#projects" class="nav-link">Projects</a></li>
+                        <li><a href="#careers" class="nav-link">Careers</a></li>
+                        <li><a href="#contact" class="nav-link">Contact</a></li>
+                    </ul>
+                    <div class="hamburger" id="hamburger">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-overlay"></div>
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Leading Construction and Engineering Company in Sri Lanka</h1>
+                <h2 class="hero-subtitle">The Future of Construction, is Here</h2>
+                <a href="#footer" class="btn btn-primary">Contact us</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section id="about" class="why-choose-us">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">WHY CHOOSE US</h2>
+                <h3 class="section-subtitle">Sri Lanka's most advanced construction and engineering solutions provider</h3>
+                <p class="section-description">
+                    Backed by the synergies and strengths of Hayleys PLC and as one of the leading construction and engineering companies in Sri Lanka, Advantis Engineering leverages its extensive construction and engineering experience acquired over the years to offer modern-day construction solutions to industries in Sri Lanka and beyond.
+                </p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Team of Dedicated Construction Professionals</h3>
+                    <p>Advantis Engineering consists of construction professionals including civil and mechanical engineers, project managers and a plethora of construction experts with years of experience.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3>Dedicated to Our Clients</h3>
+                    <p>Advantis Engineering values itself in providing optimized construction solutions to its clients. A satisfied client and a successful construction project is of utmost importance to us.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <h3>Diversified Construction Portfolio</h3>
+                    <p>From Civil construction to steel buildings, Advantis engineering has the expertise and experience to handle all types of construction ventures.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Supporting Clients Section -->
+    <section class="supporting-clients">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Supporting Clients with Customised Solutions</h2>
+                <p class="section-description">
+                    As a client-focused building construction company, we understand that each project comes with unique challenges and requirements. That's why we offer fully customised solutions that are tailored to meet the specific needs of our clients.
+                </p>
+            </div>
+            <div class="support-grid">
+                <div class="support-item">
+                    <div class="support-icon">
+                        <i class="fas fa-drafting-compass"></i>
+                    </div>
+                    <h3>Collaborative Planning & Design</h3>
+                    <p>We work closely with our clients to develop detailed plans that meet both functional and aesthetic requirements. Our expert design team uses the latest technologies to ensure precision and creativity in every project.</p>
+                </div>
+                <div class="support-item">
+                    <div class="support-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h3>Innovative Engineering Solutions</h3>
+                    <p>As one of the most advanced construction and engineering companies in Sri Lanka, we leverage cutting-edge technologies to optimise construction processes, improve efficiency, and ensure the highest level of safety on site.</p>
+                </div>
+                <div class="support-item">
+                    <div class="support-icon">
+                        <i class="fas fa-tasks"></i>
+                    </div>
+                    <h3>Comprehensive Project Management</h3>
+                    <p>From start to finish, our dedicated project management team ensures smooth execution of every phase, delivering projects on time and within budget.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="footer" class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About us</h3>
+                    <p>Advantis Engineering is a leading construction company in Sri Lanka, specializing in Turnkey construction, civil construction, Pre-Engineered Steel Buildings, structural assembly/ erection and all kinds of construction and engineering solutions.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Company</h3>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#projects">Projects</a></li>
+                        <li><a href="#careers">Careers</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <p>No. 148B, Nawalokapura,<br>Sedawatte, Wellampitiya,<br>Colombo, Sri Lanka.</p>
+                    <p>(+94) 77 2033 310<br>(+94) 11 2572 622</p>
+                    <p>info@advantisengineering.com</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Connect</h3>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Advantis Projects & Engineering Private Limited. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

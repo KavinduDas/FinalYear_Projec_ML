@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chat – SMART CONSTRUCTION</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: #001f3f;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #0f172a;
+        }
+
+        .chat-shell {
+            width: 100%;
+            max-width: 960px;
+            height: 90vh;
+            max-height: 720px;
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 20px 45px rgba(15, 23, 42, 0.18);
+            display: flex;
+            flex-direction: column;
+            padding: 1.5rem 1.75rem;
+        }
+
+        .chat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .chat-title {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .chat-title h1 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        .chat-title span {
+            font-size: 0.85rem;
+            color: #6b7280;
+        }
+
+        .model-pill {
+            padding: 0.35rem 0.9rem;
+            border-radius: 999px;
+            background: #eff6ff;
+            color: #1d4ed8;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .chat-main {
+            flex: 1;
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+            background: #f9fafb;
+            padding: 1rem;
+            overflow-y: auto;
+        }
+
+        .empty-state {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            color: #6b7280;
+            text-align: center;
+            font-size: 0.95rem;
+        }
+
+        .empty-state h2 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #111827;
+        }
+
+        .bubble-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .msg-row {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .msg-row.user {
+            justify-content: flex-end;
+        }
+
+        .msg-avatar {
+            width: 28px;
+            height: 28px;
+            border-radius: 999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #ffffff;
+            flex-shrink: 0;
+        }
+
+        .msg-avatar.user {
+            background: #0ea5e9;
+        }
+
+        .msg-avatar.ai {
+            background: #6366f1;
+        }
+
+        .msg-bubble {
+            max-width: 70%;
+            padding: 0.6rem 0.8rem;
+            border-radius: 0.75rem;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            box-shadow: 0 1px 2px rgba(15, 23, 42, 0.12);
+        }
+
+        .msg-row.user .msg-bubble {
+            background: #0ea5e9;
+            color: #ecfeff;
+            border-bottom-right-radius: 0.2rem;
+        }
+
+        .msg-row.ai .msg-bubble {
+            background: #ffffff;
+            color: #111827;
+            border-bottom-left-radius: 0.2rem;
+        }
+
+        .msg-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            margin-bottom: 0.15rem;
+            opacity: 0.7;
+        }
+
+        .chat-footer {
+            margin-top: 1rem;
+            border-radius: 999px;
+            border: 1px solid #e5e7eb;
+            padding: 0.35rem 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #ffffff;
+        }
+
+        .chat-input {
+            flex: 1;
+            border: none;
+            outline: none;
+            font-size: 0.95rem;
+            padding: 0.5rem 0.75rem;
+            background: transparent;
+        }
+
+        .chat-input::placeholder {
+            color: #9ca3af;
+        }
+
+        .send-btn {
+            border: none;
+            border-radius: 999px;
+            padding: 0.55rem 1.1rem;
+            background: #2563eb;
+            color: #ffffff;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            box-shadow: 0 8px 18px rgba(37, 99, 235, 0.35);
+            transition: background 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease;
+        }
+
+        .send-btn:hover {
+            background: #1d4ed8;
+            transform: translateY(-1px);
+            box-shadow: 0 10px 22px rgba(37, 99, 235, 0.38);
+        }
+
+        .send-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 4px 10px rgba(37, 99, 235, 0.25);
+        }
+
+        .send-icon {
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .chat-shell {
+                height: 100vh;
+                max-height: none;
+                border-radius: 0;
+                box-shadow: none;
+            }
+
+            .msg-bubble {
+                max-width: 82%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-shell">
+        <header class="chat-header">
+            <div class="chat-title">
+                <h1>AI Assistant</h1>
+                <span>Ask anything about construction demand, materials, or pricing.</span>
+            </div>
+            <div class="model-pill">
+                Chat mode
+            </div>
+        </header>
+
+        <main id="chat-main" class="chat-main">
+            {% if chat_history and chat_history|length > 0 %}
+                <div class="bubble-list">
+                    {% for chat in chat_history %}
+                        <div class="msg-row user">
+                            <div class="msg-bubble">
+                                <div class="msg-label">You</div>
+                                <div>{{ chat.user }}</div>
+                            </div>
+                            <div class="msg-avatar user">Y</div>
+                        </div>
+                        <div class="msg-row ai">
+                            <div class="msg-avatar ai">AI</div>
+                            <div class="msg-bubble">
+                                <div class="msg-label">Assistant</div>
+                                <div>{{ chat.ai }}</div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="empty-state">
+                    <h2>Start a new conversation</h2>
+                    <p>Describe your construction project or ask about material costs, availability, or demand trends.</p>
+                    <p>For example: “Estimate cement needs for a 5-storey building in Colombo.”</p>
+                </div>
+            {% endif %}
+        </main>
+
+        <form class="chat-footer" method="POST" action="{{ url_for('chat') }}">
+            <input
+                class="chat-input"
+                type="text"
+                name="message"
+                placeholder="Ask a question or describe your project..."
+                autocomplete="off"
+                required
+            >
+            <button class="send-btn" type="submit">
+                <span>Send</span>
+                <span class="send-icon">➤</span>
+            </button>
+        </form>
+    </div>
+
+    <script>
+        // Auto-scroll chat to bottom on load
+        const chatMain = document.getElementById('chat-main');
+        if (chatMain) {
+            chatMain.scrollTop = chatMain.scrollHeight;
+        }
+    </script>
+</body>
+</html>
