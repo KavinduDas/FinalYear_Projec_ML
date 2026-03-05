@@ -1,3 +1,8 @@
+import os
+os.environ["OPENBLAS_NUM_THREADS"] = "1"
+os.environ["OMP_NUM_THREADS"] = "1"          # Added After python app.py not worked after docker 
+os.environ["MKL_NUM_THREADS"] = "1"          
+os.environ["VECLIB_MAXIMUM_THREADS"] = "1"
 from flask import Flask, render_template, request , redirect ,url_for , flash , session , jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
@@ -10,8 +15,12 @@ query_engine = get_query_engine()
 
 app = Flask(__name__)
 # query_engine = create_query_engine()
+
+# Before Docker Implementation DB 03/04 2.08pm
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:Kavi%4010140@localhost:5432/Users'
 app.config['SECRET_KEY'] = 'thisisasecretkey'
+# app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URL")
+# app.config['SECRET_KEY'] = os.getenv("SECRET_KEY")
 bcrypt = Bcrypt(app)
 
 db = SQLAlchemy(app)
@@ -64,10 +73,20 @@ class LoginForm(FlaskForm):
 def index():
     return render_template("index.html")
 
+@app.route('/dashboard')
+def dashboard():
+    return render_template("dashboard.html")
+
+
 @app.route('/adminPage')
 def adminPage():
     Total_users = User.query.order_by(User.username).all()
     return render_template("adminpage.html", Total_users=Total_users)
+
+@app.route("/test")
+def test():
+    return render_template("test.html")
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -134,6 +153,9 @@ def chat():
         return render_template("chat.html", chat_history=chat_history)
 
     return render_template("chat.html", chat_history=chat_history)
+
+
+
 
 if __name__ == "__main__":
     with app.app_context():

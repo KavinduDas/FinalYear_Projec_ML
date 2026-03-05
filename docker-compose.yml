@@ -1,0 +1,64 @@
+# version: "3.9"
+
+# services:
+#   web:
+#     build: .
+#     container_name: ml-flaskapp
+#     ports:
+#       - "5000:5000"
+#     environment:
+#       # DATABASE_URL: postgresql://postgres:password@db:5432/Users     // Before Docker Implementation
+#       # DATABASE_URL: postgresql://postgres:Kavi%4010140@localhost:5432/Users
+#       DATABASE_URL: postgresql://postgres:Kavi%4010140@db:5432/Users
+#       SECRET_KEY: thisisasecretkey
+#       GROQ_API_KEY: "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"
+#     depends_on:
+#       - db
+
+#   db:
+#     image: postgres:15
+#     container_name: postgres-db
+#     restart: always
+#     environment:
+#       POSTGRES_USER: postgres
+#       POSTGRES_PASSWORD: password
+#       POSTGRES_DB: Users
+#     ports:
+#       - "5432:5432"
+#     volumes:
+#       - postgres_data:/var/lib/postgresql/data
+
+# volumes:
+#   postgres_data:
+
+version: "3.9"
+
+services:
+  web:
+    build: .
+    container_name: ml-flaskapp
+    ports:
+      - "5000:5000"
+    environment:
+      # This connects to the Postgres container
+      DATABASE_URL: postgresql://postgres:Kavi%4010140@db:5432/Users
+      SECRET_KEY: thisisasecretkey
+      GROQ_API_KEY: "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"
+    depends_on:
+      - db
+
+  db:
+    image: postgres:15
+    container_name: postgres-db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: Users
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

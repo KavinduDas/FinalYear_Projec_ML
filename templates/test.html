@@ -2,203 +2,823 @@
 
 {% block body %}
 
-    <div class="admin-container">
-        <!-- Sidebar -->
-        <aside class="sidebar" id="sidebar">
-            <div class="sidebar-toggle" id="sidebarToggle">
-                <i class="fas fa-chevron-left"></i>
-                <span>Hide Menu</span>
+<section id="test" style="padding: 100px 2rem 3rem; background: #f9fafb; min-height: 100vh;">
+    <div style="max-width: 1200px; margin: 0 auto;">
+        <h2 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 2rem; color: #1f2937;">
+            Select Chart Type
+        </h2>
+        
+        <form id="chartTypeForm">
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;">
+                <!-- Bar Chart -->
+                <div class="chart-option" style="background: #ffffff; border: 2px solid #e5e7eb; border-radius: 8px; padding: 1rem; cursor: pointer; transition: all 0.3s ease;" onclick="selectChart('bar')" onmouseenter="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 8px 16px rgba(0, 0, 0, 0.15)'" onmouseleave="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                    <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;">
+                        <input type="radio" name="chartType" value="bar" id="barChart" checked style="width: 20px; height: 20px; cursor: pointer; accent-color: #9333ea;">
+                        <label for="barChart" style="font-size: 1rem; font-weight: 600; color: #111827; cursor: pointer; margin: 0;">Bar Chart</label>
+                    </div>
+                    <!-- Filters -->
+                    <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.75rem; align-items: center;">
+                        <select style="flex: 1; min-width: 140px; padding: 0.35rem 0.5rem; border-radius: 6px; border: 1px solid #e5e7eb; font-size: 0.85rem; color: #374151;">
+                            <option>All</option>
+                            <option>Cement</option>
+                            <option>Sand</option>
+                            <option>Steel</option>
+                            <option>Bricks</option>
+                            <option>Tiles</option>
+                            <option>Pipes</option>
+                        </select>
+                        <input type="date" style="padding: 0.35rem 0.5rem; border-radius: 6px; border: 1px solid #e5e7eb; font-size: 0.85rem; color: #374151;">
+                        <input type="date" style="padding: 0.35rem 0.5rem; border-radius: 6px; border: 1px solid #e5e7eb; font-size: 0.85rem; color: #374151;">
+                    </div>
+                    <div style="position: relative; height: 200px; width: 100%;">
+                        <canvas id="barPreview"></canvas>
+                    </div>
+                </div>
+
+                <!-- Stacked Bar Chart -->
+                <div class="chart-option" style="background: #ffffff; border: 2px solid #e5e7eb; border-radius: 8px; padding: 1rem; cursor: pointer; transition: all 0.3s ease;" onclick="selectChart('stackedBar')" onmouseenter="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 8px 16px rgba(0, 0, 0, 0.15)'" onmouseleave="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                    <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;">
+                        <input type="radio" name="chartType" value="stackedBar" id="stackedBarChart" style="width: 20px; height: 20px; cursor: pointer; accent-color: #9333ea;">
+                        <label for="stackedBarChart" style="font-size: 1rem; font-weight: 600; color: #111827; cursor: pointer; margin: 0;">Stacked Bar Chart</label>
+                    </div>
+                    <!-- Filters -->
+                    <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.75rem; align-items: center;">
+                        <select style="flex: 1; min-width: 140px; padding: 0.35rem 0.5rem; border-radius: 6px; border: 1px solid #e5e7eb; font-size: 0.85rem; color: #374151;">
+                            <option>All</option>
+                            <option>Cement</option>
+                            <option>Sand</option>
+                            <option>Steel</option>
+                            <option>Bricks</option>
+                            <option>Tiles</option>
+                            <option>Pipes</option>
+                        </select>
+                        <input type="date" style="padding: 0.35rem 0.5rem; border-radius: 6px; border: 1px solid #e5e7eb; font-size: 0.85rem; color: #374151;">
+                        <input type="date" style="padding: 0.35rem 0.5rem; border-radius: 6px; border: 1px solid #e5e7eb; font-size: 0.85rem; color: #374151;">
+                    </div>
+                    <div style="position: relative; height: 200px; width: 100%;">
+                        <canvas id="stackedBarPreview"></canvas>
+                    </div>
+                </div>
+
+                <!-- Line Chart -->
+                <div class="chart-option" style="background: #ffffff; border: 2px solid #e5e7eb; border-radius: 8px; padding: 1rem; cursor: pointer; transition: all 0.3s ease;" onclick="selectChart('line')" onmouseenter="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 8px 16px rgba(0, 0, 0, 0.15)'" onmouseleave="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                    <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;">
+                        <input type="radio" name="chartType" value="line" id="lineChart" style="width: 20px; height: 20px; cursor: pointer; accent-color: #9333ea;">
+                        <label for="lineChart" style="font-size: 1rem; font-weight: 600; color: #111827; cursor: pointer; margin: 0;">Line Chart</label>
+                    </div>
+                    <!-- Filters -->
+                    <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.75rem; align-items: center;">
+                        <select style="flex: 1; min-width: 140px; padding: 0.35rem 0.5rem; border-radius: 6px; border: 1px solid #e5e7eb; font-size: 0.85rem; color: #374151;">
+                            <option>All</option>
+                            <option>Cement</option>
+                            <option>Sand</option>
+                            <option>Steel</option>
+                            <option>Bricks</option>
+                            <option>Tiles</option>
+                            <option>Pipes</option>
+                        </select>
+                        <input type="date" style="padding: 0.35rem 0.5rem; border-radius: 6px; border: 1px solid #e5e7eb; font-size: 0.85rem; color: #374151;">
+                        <input type="date" style="padding: 0.35rem 0.5rem; border-radius: 6px; border: 1px solid #e5e7eb; font-size: 0.85rem; color: #374151;">
+                    </div>
+                    <div style="position: relative; height: 200px; width: 100%;">
+                        <canvas id="linePreview"></canvas>
+                    </div>
+                </div>
+
+                <!-- Pie Chart -->
+                <div class="chart-option" style="background: #ffffff; border: 2px solid #e5e7eb; border-radius: 8px; padding: 1rem; cursor: pointer; transition: all 0.3s ease;" onclick="selectChart('pie')" onmouseenter="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 8px 16px rgba(0, 0, 0, 0.15)'" onmouseleave="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                    <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;">
+                        <input type="radio" name="chartType" value="pie" id="pieChart" style="width: 20px; height: 20px; cursor: pointer; accent-color: #9333ea;">
+                        <label for="pieChart" style="font-size: 1rem; font-weight: 600; color: #111827; cursor: pointer; margin: 0;">Pie Chart</label>
+                    </div>
+                    <!-- Filters -->
+                    <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.75rem; align-items: center;">
+                        <select style="flex: 1; min-width: 140px; padding: 0.35rem 0.5rem; border-radius: 6px; border: 1px solid #e5e7eb; font-size: 0.85rem; color: #374151;">
+                            <option>All</option>
+                            <option>Cement</option>
+                            <option>Sand</option>
+                            <option>Steel</option>
+                            <option>Bricks</option>
+                            <option>Tiles</option>
+                            <option>Pipes</option>
+                        </select>
+                        <input type="date" style="padding: 0.35rem 0.5rem; border-radius: 6px; border: 1px solid #e5e7eb; font-size: 0.85rem; color: #374151;">
+                        <input type="date" style="padding: 0.35rem 0.5rem; border-radius: 6px; border: 1px solid #e5e7eb; font-size: 0.85rem; color: #374151;">
+                    </div>
+                    <div style="position: relative; height: 200px; width: 100%;">
+                        <canvas id="piePreview"></canvas>
+                    </div>
+                </div>
+
+                <!-- Donut Chart -->
+                <div class="chart-option" style="background: #ffffff; border: 2px solid #e5e7eb; border-radius: 8px; padding: 1rem; cursor: pointer; transition: all 0.3s ease;" onclick="selectChart('donut')" onmouseenter="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 8px 16px rgba(0, 0, 0, 0.15)'" onmouseleave="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                    <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;">
+                        <input type="radio" name="chartType" value="donut" id="donutChart" style="width: 20px; height: 20px; cursor: pointer; accent-color: #9333ea;">
+                        <label for="donutChart" style="font-size: 1rem; font-weight: 600; color: #111827; cursor: pointer; margin: 0;">Donut Chart</label>
+                    </div>
+                    <!-- Filters -->
+                    <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.75rem; align-items: center;">
+                        <select style="flex: 1; min-width: 140px; padding: 0.35rem 0.5rem; border-radius: 6px; border: 1px solid #e5e7eb; font-size: 0.85rem; color: #374151;">
+                            <option>All</option>
+                            <option>Cement</option>
+                            <option>Sand</option>
+                            <option>Steel</option>
+                            <option>Bricks</option>
+                            <option>Tiles</option>
+                            <option>Pipes</option>
+                        </select>
+                        <input type="date" style="padding: 0.35rem 0.5rem; border-radius: 6px; border: 1px solid #e5e7eb; font-size: 0.85rem; color: #374151;">
+                        <input type="date" style="padding: 0.35rem 0.5rem; border-radius: 6px; border: 1px solid #e5e7eb; font-size: 0.85rem; color: #374151;">
+                    </div>
+                    <div style="position: relative; height: 200px; width: 100%;">
+                        <canvas id="donutPreview"></canvas>
+                    </div>
+                </div>
+
+                <!-- Scatter Chart -->
+                <div class="chart-option" style="background: #ffffff; border: 2px solid #e5e7eb; border-radius: 8px; padding: 1rem; cursor: pointer; transition: all 0.3s ease;" onclick="selectChart('scatter')" onmouseenter="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 8px 16px rgba(0, 0, 0, 0.15)'" onmouseleave="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                    <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;">
+                        <input type="radio" name="chartType" value="scatter" id="scatterChart" style="width: 20px; height: 20px; cursor: pointer; accent-color: #9333ea;">
+                        <label for="scatterChart" style="font-size: 1rem; font-weight: 600; color: #111827; cursor: pointer; margin: 0;">Scatter Chart</label>
+                    </div>
+                    <!-- Filters -->
+                    <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.75rem; align-items: center;">
+                        <select style="flex: 1; min-width: 140px; padding: 0.35rem 0.5rem; border-radius: 6px; border: 1px solid #e5e7eb; font-size: 0.85rem; color: #374151;">
+                            <option>All</option>
+                            <option>Cement</option>
+                            <option>Sand</option>
+                            <option>Steel</option>
+                            <option>Bricks</option>
+                            <option>Tiles</option>
+                            <option>Pipes</option>
+                        </select>
+                        <input type="date" style="padding: 0.35rem 0.5rem; border-radius: 6px; border: 1px solid #e5e7eb; font-size: 0.85rem; color: #374151;">
+                        <input type="date" style="padding: 0.35rem 0.5rem; border-radius: 6px; border: 1px solid #e5e7eb; font-size: 0.85rem; color: #374151;">
+                    </div>
+                    <div style="position: relative; height: 200px; width: 100%;">
+                        <canvas id="scatterPreview"></canvas>
+                    </div>
+                </div>
             </div>
-            <nav class="sidebar-nav">
-                <a href="#" class="nav-item" data-section="dashboard">
-                    <i class="fas fa-th-large"></i>
-                    <span>Dashboard</span>
-                </a>
-                <a href="#" class="nav-item active" data-section="create-user">
-                    <i class="fas fa-user-plus"></i>
-                    <span>Create User</span>
-                </a>
-                <a href="#" class="nav-item" data-section="manage-users">
-                    <i class="fas fa-users"></i>
-                    <span>Manage Users</span>
-                </a>
-                <a href="#" class="nav-item" data-section="parameters">
-                    <i class="fas fa-file-alt"></i>
-                    <span>Parameters</span>
-                    <i class="fas fa-chevron-right"></i>
-                </a>
-            </nav>
-        </aside>
-
-        <!-- Main Content -->
-        <main class="main-content">
-            <!-- Create User Section -->
-            <section class="content-section" id="create-user-section">
-                <div class="section-header">
-                    <h2>Create User</h2>
-                </div>
-                <div class="content-card">
-                    <form class="user-form" id="createUserForm" action="/add_user" method="post">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="username">Username</label>
-                                <div class="input-wrapper">
-                                    <i class="fas fa-user input-icon"></i>
-                                    <input 
-                                        type="text" 
-                                        id="username" 
-                                        name="username" 
-                                        placeholder="Enter username"
-                                        required
-                                    >
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="password">Password</label>
-                                <div class="input-wrapper">
-                                    <i class="fas fa-lock input-icon"></i>
-                                    <input 
-                                        type="password" 
-                                        id="password" 
-                                        name="password" 
-                                        placeholder="Enter password"
-                                        required
-                                    >
-                                    <i class="fas fa-eye password-toggle" id="passwordToggle"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="email">Email</label>
-                                <div class="input-wrapper">
-                                    <i class="fas fa-envelope input-icon"></i>
-                                    <input 
-                                        type="email" 
-                                        id="email" 
-                                        name="email" 
-                                        placeholder="Enter email address"
-                                        required
-                                    >
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="designation">Designation</label>
-                                <div class="input-wrapper">
-                                    <i class="fas fa-briefcase input-icon"></i>
-                                    <select 
-                                        id="designation" 
-                                        name="designation" 
-                                        class="form-select"
-                                        required
-                                    >
-                                        <option value="">Select designation</option>
-                                        <option value="Admin">Admin</option>
-                                        <option value="Project Manager">Project Manager</option>
-                                        <option value="Site Manager">Site Manager</option>
-                                        <option value="Engineer">Engineer</option>
-                                        <option value="Supervisor">Supervisor</option>
-                                        <option value="Accountant">Accountant</option>
-                                        <option value="Procurement Officer">Procurement Officer</option>
-                                        <option value="Data Analyst">Data Analyst</option>
-                                        <option value="Viewer">Viewer</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-actions">
-                            <button type="submit" class="btn-primary">Create User</button>
-                            <button type="reset" class="btn-secondary">Reset</button>
-                        </div>
-                    </form>
-                </div>
-            </section>
-
-            <!-- Manage Users Section -->
-            <section class="content-section" id="manage-users-section" style="display: none;">
-                <div class="section-header">
-                    <h2>Manage Users</h2>
-                    <button class="btn-add-user" onclick="showCreateUser()">
-                        <i class="fas fa-plus"></i>
-                        Add User
-                    </button>
-                </div>
-                <div class="content-card">
-                    <div class="card-header">
-                        <h3>User List</h3>
-                        <div class="search-wrapper">
-                            <i class="fas fa-search search-icon"></i>
-                            <input 
-                                type="text" 
-                                id="searchUser" 
-                                class="search-input" 
-                                placeholder="Search User"
-                                onkeyup="filterUsers()"
-                            >
-                        </div>
-                    </div>
-                    <div class="table-container">
-                        <table class="user-table" id="userTable">
-                            <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>Profile</th>
-                                    <th>Email</th>
-                                    <th>Role</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody id="userTableBody">
-                                <!-- Users will be populated here -->
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="table-footer">
-                        <div class="rows-per-page">
-                            <span>Rows per page:</span>
-                            <select id="rowsPerPage" onchange="changeRowsPerPage()">
-                                <option value="10" selected>10</option>
-                                <option value="25">25</option>
-                                <option value="50">50</option>
-                                <option value="100">100</option>
-                            </select>
-                        </div>
-                        <div class="pagination-info">
-                            <span id="paginationText">1-10 of 50 items</span>
-                            <div class="pagination-controls">
-                                <button class="page-btn" id="prevPage" onclick="changePage(-1)">
-                                    <i class="fas fa-chevron-left"></i>
-                                </button>
-                                <button class="page-btn" id="nextPage" onclick="changePage(1)">
-                                    <i class="fas fa-chevron-right"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Dashboard Section -->
-            <section class="content-section" id="dashboard-section" style="display: none;">
-                <div class="section-header">
-                    <h2>Dashboard</h2>
-                </div>
-                <div class="content-card">
-                    <p>Dashboard content goes here...</p>
-                </div>
-            </section>
-
-            <!-- Parameters Section -->
-            <section class="content-section" id="parameters-section" style="display: none;">
-                <div class="section-header">
-                    <h2>Parameters</h2>
-                </div>
-                <div class="content-card">
-                    <p>Parameters content goes here...</p>
-                </div>
-            </section>
-        </main>
+        </form>
     </div>
-    <script src="{{ url_for('static', filename='Js/adminpage.js')}}"></script>
+</section>
 
+<!-- Chart Modal -->
+<div id="chartModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 1000; align-items: center; justify-content: center; backdrop-filter: blur(4px);" onclick="if(event.target === this) closeChartModal()">
+    <div style="background: #ffffff; border-radius: 12px; box-shadow: 0 20px 45px rgba(0, 0, 0, 0.3); max-width: 90vw; max-height: 90vh; width: 800px; padding: 2rem; position: relative; display: flex; flex-direction: column;">
+        <!-- Modal Header -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+            <h3 id="modalChartTitle" style="font-size: 1.5rem; font-weight: 700; color: #111827; margin: 0;">Chart View</h3>
+            <button onclick="closeChartModal()" style="background: none; border: none; font-size: 1.5rem; color: #6b7280; cursor: pointer; padding: 0.25rem 0.5rem; line-height: 1; transition: color 0.2s;" onmouseover="this.style.color='#111827'" onmouseout="this.style.color='#6b7280'">
+                ×
+            </button>
+        </div>
+
+        <!-- Modal Filters -->
+        <div style="display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1rem; align-items: center;">
+            <select style="flex: 1; min-width: 160px; padding: 0.4rem 0.6rem; border-radius: 8px; border: 1px solid #e5e7eb; font-size: 0.9rem; color: #374151;">
+                <option>All</option>
+                <option>Cement</option>
+                <option>Sand</option>
+                <option>Steel</option>
+                <option>Bricks</option>
+                <option>Tiles</option>
+                <option>Pipes</option>
+            </select>
+            <input type="date" style="padding: 0.4rem 0.6rem; border-radius: 8px; border: 1px solid #e5e7eb; font-size: 0.9rem; color: #374151;">
+            <input type="date" style="padding: 0.4rem 0.6rem; border-radius: 8px; border: 1px solid #e5e7eb; font-size: 0.9rem; color: #374151;">
+        </div>
+
+        <!-- Chart Container -->
+        <div style="position: relative; height: 500px; width: 100%;">
+            <canvas id="modalChart"></canvas>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  let modalChartInstance = null;
+
+  // Function to select chart and update border
+  function selectChart(type) {
+    document.querySelectorAll('.chart-option').forEach(option => {
+      option.style.border = '2px solid #e5e7eb';
+    });
+    event.currentTarget.style.border = '2px solid #9333ea';
+    document.getElementById(type + 'Chart').checked = true;
+    
+    // Open modal and render the selected chart
+    openChartModal(type);
+  }
+
+  // Function to open chart modal
+  function openChartModal(type) {
+    const modal = document.getElementById('chartModal');
+    const modalTitle = document.getElementById('modalChartTitle');
+    const modalCanvas = document.getElementById('modalChart');
+    
+    // Set title based on chart type
+    const titles = {
+      'bar': 'Bar Chart',
+      'stackedBar': 'Stacked Bar Chart',
+      'line': 'Line Chart',
+      'pie': 'Pie Chart',
+      'donut': 'Donut Chart',
+      'scatter': 'Scatter Chart'
+    };
+    modalTitle.textContent = titles[type] || 'Chart View';
+    
+    // Show modal
+    modal.style.display = 'flex';
+    
+    // Destroy previous chart instance if exists
+    if (modalChartInstance) {
+      modalChartInstance.destroy();
+    }
+    
+    // Render the selected chart
+    renderModalChart(type, modalCanvas);
+  }
+
+  // Function to close chart modal
+  function closeChartModal() {
+    const modal = document.getElementById('chartModal');
+    modal.style.display = 'none';
+    
+    // Destroy chart instance when closing
+    if (modalChartInstance) {
+      modalChartInstance.destroy();
+      modalChartInstance = null;
+    }
+  }
+
+
+  // Function to render chart in modal
+  function renderModalChart(type, canvas) {
+    const chartConfigs = {
+      'bar': {
+        type: 'bar',
+        data: {
+          labels: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
+          datasets: [
+            {
+              label: 'Net Profit',
+              data: [30, 45, 35, 50, 60, 70, 65, 80, 90],
+              backgroundColor: 'rgba(59, 130, 246, 0.8)',
+              borderColor: 'rgba(59, 130, 246, 1)',
+              borderWidth: 1
+            },
+            {
+              label: 'Revenue',
+              data: [50, 65, 55, 70, 80, 90, 85, 100, 110],
+              backgroundColor: 'rgba(16, 185, 129, 0.8)',
+              borderColor: 'rgba(16, 185, 129, 1)',
+              borderWidth: 1
+            },
+            {
+              label: 'Free Cash Flow',
+              data: [20, 30, 25, 35, 40, 45, 42, 50, 55],
+              backgroundColor: 'rgba(250, 204, 21, 0.8)',
+              borderColor: 'rgba(250, 204, 21, 1)',
+              borderWidth: 1
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'bottom',
+              labels: { boxWidth: 12, padding: 12, font: { size: 12 } }
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 120,
+              ticks: { stepSize: 30, font: { size: 11 } }
+            },
+            x: {
+              ticks: { font: { size: 11 } }
+            }
+          }
+        }
+      },
+      'stackedBar': {
+        type: 'bar',
+        data: {
+          labels: ["Jan '11", "02 Jan", "03 Jan", "04 Jan", "05 Jan", "06 Jan"],
+          datasets: [
+            {
+              label: 'PRODUCT A',
+              data: [44, 40, 42, 45, 38, 43],
+              backgroundColor: 'rgba(59, 130, 246, 0.8)'
+            },
+            {
+              label: 'PRODUCT B',
+              data: [21, 25, 23, 20, 22, 24],
+              backgroundColor: 'rgba(16, 185, 129, 0.8)'
+            },
+            {
+              label: 'PRODUCT C',
+              data: [18, 20, 19, 22, 21, 20],
+              backgroundColor: 'rgba(250, 204, 21, 0.8)'
+            },
+            {
+              label: 'PRODUCT D',
+              data: [7, 8, 6, 9, 7, 8],
+              backgroundColor: 'rgba(239, 68, 68, 0.8)'
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'right',
+              labels: { boxWidth: 12, padding: 10, font: { size: 12 } }
+            }
+          },
+          scales: {
+            x: { stacked: true, ticks: { font: { size: 11 } } },
+            y: { stacked: true, beginAtZero: true, max: 120, ticks: { stepSize: 30, font: { size: 11 } } }
+          }
+        }
+      },
+      'line': {
+        type: 'line',
+        data: {
+          labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
+          datasets: [{
+            label: 'Product Trends',
+            data: [20, 25, 30, 28, 35, 40, 45, 50, 140],
+            borderColor: 'rgba(59, 130, 246, 1)',
+            backgroundColor: 'rgba(59, 130, 246, 0.1)',
+            tension: 0.4,
+            fill: false,
+            pointRadius: 5,
+            pointBackgroundColor: 'rgba(59, 130, 246, 1)',
+            pointBorderColor: '#ffffff',
+            pointBorderWidth: 2
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            title: {
+              display: true,
+              text: 'Product Trends by Month',
+              font: { size: 14, weight: 'bold' }
+            },
+            legend: { display: false }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 150,
+              ticks: { stepSize: 30, font: { size: 11 } }
+            },
+            x: {
+              ticks: { font: { size: 11 } }
+            }
+          }
+        }
+      },
+      'pie': {
+        type: 'pie',
+        data: {
+          labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E'],
+          datasets: [{
+            data: [24.9, 31.1, 7.3, 24.3, 12.4],
+            backgroundColor: [
+              'rgba(59, 130, 246, 0.9)',
+              'rgba(16, 185, 129, 0.9)',
+              'rgba(250, 204, 21, 0.9)',
+              'rgba(239, 68, 68, 0.9)',
+              'rgba(168, 85, 247, 0.9)'
+            ],
+            borderColor: '#ffffff',
+            borderWidth: 3
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'right',
+              labels: { boxWidth: 15, padding: 10, font: { size: 12 } }
+            },
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  return context.label + ': ' + context.parsed + '%';
+                }
+              }
+            }
+          }
+        }
+      },
+      'donut': {
+        type: 'doughnut',
+        data: {
+          labels: ['series-1', 'series-2', 'series-3', 'series-4', 'series-5'],
+          datasets: [{
+            data: [25.6, 32.0, 23.8, 9.9, 8.7],
+            backgroundColor: [
+              'rgba(59, 130, 246, 0.9)',
+              'rgba(16, 185, 129, 0.9)',
+              'rgba(250, 204, 21, 0.9)',
+              'rgba(234, 88, 12, 0.9)',
+              'rgba(168, 85, 247, 0.9)'
+            ],
+            borderColor: '#ffffff',
+            borderWidth: 3
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          cutout: '60%',
+          plugins: {
+            legend: {
+              position: 'right',
+              labels: { boxWidth: 15, padding: 10, font: { size: 12 } }
+            },
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  return context.label + ': ' + context.parsed + '%';
+                }
+              }
+            }
+          }
+        }
+      },
+      'scatter': {
+        type: 'scatter',
+        data: {
+          datasets: [
+            {
+              label: 'SAMPLE A',
+              data: [
+                {x: 2.5, y: 3}, {x: 5, y: 6}, {x: 8, y: 9}, {x: 12, y: 10},
+                {x: 15, y: 12}, {x: 18, y: 14}, {x: 22, y: 15}, {x: 25, y: 16}
+              ],
+              backgroundColor: 'rgba(59, 130, 246, 0.6)',
+              borderColor: 'rgba(59, 130, 246, 1)',
+              pointRadius: 6
+            },
+            {
+              label: 'SAMPLE B',
+              data: [
+                {x: 3, y: 4}, {x: 6, y: 7}, {x: 9, y: 8}, {x: 13, y: 11},
+                {x: 16, y: 13}, {x: 19, y: 15}, {x: 23, y: 17}, {x: 26, y: 18}
+              ],
+              backgroundColor: 'rgba(16, 185, 129, 0.6)',
+              borderColor: 'rgba(16, 185, 129, 1)',
+              pointRadius: 6
+            },
+            {
+              label: 'SAMPLE C',
+              data: [
+                {x: 4, y: 5}, {x: 7, y: 8}, {x: 10, y: 10}, {x: 14, y: 12},
+                {x: 17, y: 14}, {x: 20, y: 16}, {x: 24, y: 18}, {x: 27, y: 19}
+              ],
+              backgroundColor: 'rgba(250, 204, 21, 0.6)',
+              borderColor: 'rgba(250, 204, 21, 1)',
+              pointRadius: 6
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'bottom',
+              labels: { boxWidth: 12, padding: 12, font: { size: 12 } }
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 21,
+              ticks: { stepSize: 3, font: { size: 11 } }
+            },
+            x: {
+              beginAtZero: true,
+              max: 36.4,
+              ticks: { font: { size: 11 } }
+            }
+          }
+        }
+      }
+    };
+
+    const config = chartConfigs[type];
+    if (config) {
+      modalChartInstance = new Chart(canvas, config);
+    }
+  }
+
+  // Initialize all preview charts
+  document.addEventListener('DOMContentLoaded', function() {
+    // Bar Chart Preview
+    const barCtx = document.getElementById('barPreview');
+    if (barCtx) {
+      new Chart(barCtx, {
+        type: 'bar',
+        data: {
+          labels: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
+          datasets: [
+            {
+              label: 'Net Profit',
+              data: [30, 45, 35, 50, 60, 70, 65, 80, 90],
+              backgroundColor: 'rgba(59, 130, 246, 0.8)',
+              borderColor: 'rgba(59, 130, 246, 1)',
+              borderWidth: 1
+            },
+            {
+              label: 'Revenue',
+              data: [50, 65, 55, 70, 80, 90, 85, 100, 110],
+              backgroundColor: 'rgba(16, 185, 129, 0.8)',
+              borderColor: 'rgba(16, 185, 129, 1)',
+              borderWidth: 1
+            },
+            {
+              label: 'Free Cash Flow',
+              data: [20, 30, 25, 35, 40, 45, 42, 50, 55],
+              backgroundColor: 'rgba(250, 204, 21, 0.8)',
+              borderColor: 'rgba(250, 204, 21, 1)',
+              borderWidth: 1
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'bottom',
+              labels: { boxWidth: 12, padding: 8, font: { size: 10 } }
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 120,
+              ticks: { stepSize: 30, font: { size: 9 } }
+            },
+            x: {
+              ticks: { font: { size: 9 } }
+            }
+          }
+        }
+      });
+    }
+
+    // Stacked Bar Chart Preview
+    const stackedBarCtx = document.getElementById('stackedBarPreview');
+    if (stackedBarCtx) {
+      new Chart(stackedBarCtx, {
+        type: 'bar',
+        data: {
+          labels: ["Jan '11", "02 Jan", "03 Jan", "04 Jan", "05 Jan", "06 Jan"],
+          datasets: [
+            {
+              label: 'PRODUCT A',
+              data: [44, 40, 42, 45, 38, 43],
+              backgroundColor: 'rgba(59, 130, 246, 0.8)'
+            },
+            {
+              label: 'PRODUCT B',
+              data: [21, 25, 23, 20, 22, 24],
+              backgroundColor: 'rgba(16, 185, 129, 0.8)'
+            },
+            {
+              label: 'PRODUCT C',
+              data: [18, 20, 19, 22, 21, 20],
+              backgroundColor: 'rgba(250, 204, 21, 0.8)'
+            },
+            {
+              label: 'PRODUCT D',
+              data: [7, 8, 6, 9, 7, 8],
+              backgroundColor: 'rgba(239, 68, 68, 0.8)'
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'right',
+              labels: { boxWidth: 12, padding: 6, font: { size: 9 } }
+            }
+          },
+          scales: {
+            x: { stacked: true, ticks: { font: { size: 9 } } },
+            y: { stacked: true, beginAtZero: true, max: 120, ticks: { stepSize: 30, font: { size: 9 } } }
+          }
+        }
+      });
+    }
+
+    // Line Chart Preview
+    const lineCtx = document.getElementById('linePreview');
+    if (lineCtx) {
+      new Chart(lineCtx, {
+        type: 'line',
+        data: {
+          labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
+          datasets: [{
+            label: 'Product Trends',
+            data: [20, 25, 30, 28, 35, 40, 45, 50, 140],
+            borderColor: 'rgba(59, 130, 246, 1)',
+            backgroundColor: 'rgba(59, 130, 246, 0.1)',
+            tension: 0.4,
+            fill: false,
+            pointRadius: 3,
+            pointBackgroundColor: 'rgba(59, 130, 246, 1)'
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            title: {
+              display: true,
+              text: 'Product Trends by Month',
+              font: { size: 11, weight: 'bold' }
+            },
+            legend: { display: false }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 150,
+              ticks: { stepSize: 30, font: { size: 9 } }
+            },
+            x: {
+              ticks: { font: { size: 9 } }
+            }
+          }
+        }
+      });
+    }
+
+    // Pie Chart Preview
+    const pieCtx = document.getElementById('piePreview');
+    if (pieCtx) {
+      new Chart(pieCtx, {
+        type: 'pie',
+        data: {
+          labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E'],
+          datasets: [{
+            data: [24.9, 31.1, 7.3, 24.3, 12.4],
+            backgroundColor: [
+              'rgba(59, 130, 246, 0.9)',
+              'rgba(16, 185, 129, 0.9)',
+              'rgba(250, 204, 21, 0.9)',
+              'rgba(239, 68, 68, 0.9)',
+              'rgba(168, 85, 247, 0.9)'
+            ],
+            borderColor: '#ffffff',
+            borderWidth: 2
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'right',
+              labels: { boxWidth: 12, padding: 6, font: { size: 9 } }
+            },
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  return context.label + ': ' + context.parsed + '%';
+                }
+              }
+            }
+          }
+        }
+      });
+    }
+
+    // Donut Chart Preview
+    const donutCtx = document.getElementById('donutPreview');
+    if (donutCtx) {
+      new Chart(donutCtx, {
+        type: 'doughnut',
+        data: {
+          labels: ['series-1', 'series-2', 'series-3', 'series-4', 'series-5'],
+          datasets: [{
+            data: [25.6, 32.0, 23.8, 9.9, 8.7],
+            backgroundColor: [
+              'rgba(59, 130, 246, 0.9)',
+              'rgba(16, 185, 129, 0.9)',
+              'rgba(250, 204, 21, 0.9)',
+              'rgba(234, 88, 12, 0.9)',
+              'rgba(168, 85, 247, 0.9)'
+            ],
+            borderColor: '#ffffff',
+            borderWidth: 2
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          cutout: '60%',
+          plugins: {
+            legend: {
+              position: 'right',
+              labels: { boxWidth: 12, padding: 6, font: { size: 9 } }
+            },
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  return context.label + ': ' + context.parsed + '%';
+                }
+              }
+            }
+          }
+        }
+      });
+    }
+
+    // Scatter Chart Preview
+    const scatterCtx = document.getElementById('scatterPreview');
+    if (scatterCtx) {
+      new Chart(scatterCtx, {
+        type: 'scatter',
+        data: {
+          datasets: [
+            {
+              label: 'SAMPLE A',
+              data: [
+                {x: 2.5, y: 3}, {x: 5, y: 6}, {x: 8, y: 9}, {x: 12, y: 10},
+                {x: 15, y: 12}, {x: 18, y: 14}, {x: 22, y: 15}, {x: 25, y: 16}
+              ],
+              backgroundColor: 'rgba(59, 130, 246, 0.6)',
+              borderColor: 'rgba(59, 130, 246, 1)'
+            },
+            {
+              label: 'SAMPLE B',
+              data: [
+                {x: 3, y: 4}, {x: 6, y: 7}, {x: 9, y: 8}, {x: 13, y: 11},
+                {x: 16, y: 13}, {x: 19, y: 15}, {x: 23, y: 17}, {x: 26, y: 18}
+              ],
+              backgroundColor: 'rgba(16, 185, 129, 0.6)',
+              borderColor: 'rgba(16, 185, 129, 1)'
+            },
+            {
+              label: 'SAMPLE C',
+              data: [
+                {x: 4, y: 5}, {x: 7, y: 8}, {x: 10, y: 10}, {x: 14, y: 12},
+                {x: 17, y: 14}, {x: 20, y: 16}, {x: 24, y: 18}, {x: 27, y: 19}
+              ],
+              backgroundColor: 'rgba(250, 204, 21, 0.6)',
+              borderColor: 'rgba(250, 204, 21, 1)'
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'bottom',
+              labels: { boxWidth: 12, padding: 8, font: { size: 9 } }
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 21,
+              ticks: { stepSize: 3, font: { size: 9 } }
+            },
+            x: {
+              beginAtZero: true,
+              max: 36.4,
+              ticks: { font: { size: 9 } }
+            }
+          }
+        }
+      });
+    }
+
+    // Set initial selected chart border
+    document.querySelector('.chart-option').style.border = '2px solid #9333ea';
+  });
+</script>
 {% endblock %}
